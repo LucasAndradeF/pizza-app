@@ -1,0 +1,24 @@
+.fundo-pizzaria {
+  background-image: url(../img/_pizza\ sua\ fome\ pede\ pizza\ instagram\ stories.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+}
+
+.container-login {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-cta {
+  width: 100%;
+  margin-top: 20px;
+}
