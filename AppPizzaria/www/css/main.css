@@ -1,15 +1,24 @@
+:root {
+  --color-cardapio: #ffb85a;
+}
+
 .fundo-pizzaria {
   background-image: url(../img/_pizza\ sua\ fome\ pede\ pizza\ instagram\ stories.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.form {
+.fundo-configuration {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+}
+
+.fundo-cardapio {
+  background-image: url(../img/Pizza\ quentinha\ pizzaria\ delivery\ popular\ preto\ e\ amarelo\ story\ do\ instagram.png);
+  padding-top: 60px;
 }
 
 .container-login {
@@ -21,4 +30,42 @@
 .button-cta {
   width: 100%;
   margin-top: 20px;
+}
+
+.table-cardapio tr td {
+  color: var(--color-cardapio);
+}
+
+.container-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px;
+  width: 80%;
+}
+
+.flex {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fundo-cardapio div h1 {
+  color: var(--color-cardapio);
+  text-transform: uppercase;
+  margin-top: 50px;
+}
+
+.fundo-cardapio div a, .opcoes-cardapio li button {
+  background-color: var(--color-cardapio);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.opcoes-cardapio {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
 }
