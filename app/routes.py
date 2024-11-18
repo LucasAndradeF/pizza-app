@@ -28,7 +28,6 @@ def cadastro():
     return jsonify({"message": "Usuário cadastrado com sucesso!"}), 201
 
 
-# Rota de login
 @pizzaria_bp.route("/login", methods=["POST"])
 def login():
     dados = request.json
