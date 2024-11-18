@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import Produto, Pizza, Pedido, Usuario
+from .models import Produto, Pizza, Pedido, Usuario, Bebidas, Doces
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -62,7 +62,7 @@ def get_pizzas():
     pizzas = Pizza.query.all()
     return jsonify(
         [
-            {"id": p.id, "nome": p.nome, "preco": p.preco, "tamanho": p.tamanho}
+            {"id": p.id, "nome": p.nome, "recheio": p.recheio, "preco": p.preco}
             for p in pizzas
         ]
     )
@@ -76,9 +76,8 @@ def get_pizza(id):
     return jsonify(
         {
             "id": pizza.id,
-            "nome": pizza.nome,
             "preco": pizza.preco,
-            "tamanho": pizza.tamanho,
+            "recheio": pizza.recheio,
         }
     )
 
@@ -87,18 +86,13 @@ def get_pizza(id):
 def create_pizza():
     data = request.get_json()
 
-    # Verificar se os campos obrigatórios estão presentes
-    if not all(
-        key in data for key in ["nome", "preco", "tamanho", "descricao", "tipo"]
-    ):
+    if not all(key in data for key in ["nome", "preco", "recheio"]):
         return jsonify({"message": "Campos obrigatórios faltando"}), 400
 
     new_pizza = Pizza(
         nome=data["nome"],
         preco=data["preco"],
-        tamanho=data["tamanho"],
-        descricao=data["descricao"],
-        tipo=data["tipo"],
+        recheio=data["recheio"],
     )
     db.session.add(new_pizza)
     db.session.commit()
@@ -113,7 +107,7 @@ def update_pizza(id):
         return jsonify({"message": "Pizza não encontrada"}), 404
     pizza.nome = data["nome"]
     pizza.preco = data["preco"]
-    pizza.tamanho = data["tamanho"]
+    pizza.recheio = data["recheio"]
     db.session.commit()
     return jsonify({"message": "Pizza atualizada com sucesso"})
 
@@ -126,6 +120,132 @@ def delete_pizza(id):
     db.session.delete(pizza)
     db.session.commit()
     return jsonify({"message": "Pizza deletada com sucesso"})
+
+
+
+@pizzaria_bp.route("/bebidas", methods=["GET"])
+def get_bebidas():
+    bebidas = Bebidas.query.all()
+    return jsonify(
+        [
+            {"id": p.id, "nome": p.nome, "preco": p.preco}
+            for p in bebidas
+        ]
+    )
+
+@pizzaria_bp.route("/bebidas/<int:id>", methods=["GET"])
+def get_bebida(id):
+    bebida = Bebidas.query.get(id)
+    if not bebida:
+        return jsonify({"message": "Bebida não encontrada"}), 404
+    return jsonify(
+        {
+            "id": bebida.id,
+            "nome": bebida.nome,
+            "preco": bebida.preco,
+        }
+    )
+
+
+@pizzaria_bp.route("/bebidas", methods=["POST"])
+def create_bebida():
+    data = request.get_json()
+
+    if not all(key in data for key in ["nome", "preco"]):
+        return jsonify({"message": "Campos obrigatórios faltando"}), 400
+
+    new_bebida = Bebidas(
+        nome=data["nome"],
+        preco=data["preco"],
+    )
+    db.session.add(new_bebida)
+    db.session.commit()
+    return jsonify({"message": "Bebida criada com sucesso"}), 201
+
+
+@pizzaria_bp.route("/bebidas/<int:id>", methods=["PUT"])
+def update_bebida(id):
+    data = request.get_json()
+    bebida = Bebidas.query.get(id)
+    if not bebida:
+        return jsonify({"message": "Bebida não encontrada"}), 404
+    bebida.nome = data["nome"]
+    bebida.preco = data["preco"]
+    db.session.commit()
+    return jsonify({"message": "Bebida atualizada com sucesso"})
+
+
+@pizzaria_bp.route("/bebidas/<int:id>", methods=["DELETE"])
+def delete_bebida(id):
+    bebida = Bebidas.query.get(id)
+    if not bebida:
+        return jsonify({"message": "Bebida não encontrada"}), 404
+    db.session.delete(bebida)
+    db.session.commit()
+    return jsonify({"message": "Bebida deletada com sucesso"})
+
+
+@pizzaria_bp.route("/doces", methods=["GET"])
+def get_doces():
+    doces = Doces.query.all()
+    return jsonify(
+        [
+            {"id": d.id, "nome": d.nome, "preco": d.preco}
+            for d in doces
+        ]
+    )
+
+
+@pizzaria_bp.route("/doces/<int:id>", methods=["GET"])
+def get_doce(id):
+    doce = Doces.query.get(id)
+    if not doce:
+        return jsonify({"message": "Doce não encontrado"}), 404
+    return jsonify(
+        {
+            "id": doce.id,
+            "nome": doce.nome,
+            "preco": doce.preco,
+        }
+    )
+
+
+@pizzaria_bp.route("/doces", methods=["POST"])
+def create_doce():
+    data = request.get_json()
+
+    if not all(key in data for key in ["nome", "preco"]):
+        return jsonify({"message": "Campos obrigatórios faltando"}), 400
+
+    new_doce = Doces(
+        nome=data["nome"],
+        preco=data["preco"],
+    )
+    db.session.add(new_doce)
+    db.session.commit()
+    return jsonify({"message": "Doce criado com sucesso"}), 201
+
+
+@pizzaria_bp.route("/doces/<int:id>", methods=["PUT"])
+def update_doce(id):
+    data = request.get_json()
+    doce = Doces.query.get(id)
+    if not doce:
+        return jsonify({"message": "Doce não encontrado"}), 404
+    doce.nome = data["nome"]
+    doce.preco = data["preco"]
+    db.session.commit()
+    return jsonify({"message": "Doce atualizado com sucesso"})
+
+
+@pizzaria_bp.route("/doces/<int:id>", methods=["DELETE"])
+def delete_doce(id):
+    doce = Doces.query.get(id)
+    if not doce:
+        return jsonify({"message": "Doce não encontrado"}), 404
+    db.session.delete(doce)
+    db.session.commit()
+    return jsonify({"message": "Doce deletado com sucesso"})
 
 
 @pizzaria_bp.route("/pedidos", methods=["POST"])

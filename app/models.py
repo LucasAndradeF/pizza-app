@@ -5,13 +5,12 @@ class Usuario(db.Model):
     nome = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(200), nullable=False)
+     
 
 class Produto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
     preco = db.Column(db.Float, nullable=False)
-    descricao = db.Column(db.String(200), nullable=True)
-    tipo = db.Column(db.String(50), nullable=True)
 
     pedidos = db.relationship("Pedido", backref="produto", lazy=True)
 
@@ -22,11 +21,18 @@ class Produto(db.Model):
 class Pizza(Produto):
     __tablename__ = "pizza"
     id = db.Column(db.Integer, db.ForeignKey("produto.id"), primary_key=True)
-    tamanho = db.Column(db.String(20), nullable=False)
+    recheio = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
         return f"<Pizza {self.nome} - {self.tamanho}>"
 
+class Bebidas(Produto):
+   __tablename__ = "bebidas"
+   id = db.Column(db.Integer, db.ForeignKey("produto.id"), primary_key=True)
+   
+class Doces(Produto):
+   __tablename__ = "doces"
+   id = db.Column(db.Integer, db.ForeignKey("produto.id"), primary_key=True)
 
 class Pedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
