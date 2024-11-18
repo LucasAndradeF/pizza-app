@@ -1,8 +1,61 @@
 from flask import Blueprint, jsonify, request
-from .models import Produto, Pizza, Pedido
+from .models import Produto, Pizza, Pedido, Usuario
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 pizzaria_bp = Blueprint("pizzaria", __name__)
+
+
+@pizzaria_bp.route("/cadastro", methods=["POST"])
+def cadastro():
+    dados = request.json
+    nome = dados.get("nome")
+    email = dados.get("email")
+    senha = dados.get("senha")
+
+    if not nome or not email or not senha:
+        return jsonify({"error": "Todos os campos são obrigatórios"}), 400
+
+    if Usuario.query.filter_by(email=email).first():
+        return jsonify({"error": "Email já cadastrado"}), 400
+
+    senha_hash = generate_password_hash(senha)
+    novo_usuario = Usuario(nome=nome, email=email, senha=senha_hash)
+
+    db.session.add(novo_usuario)
+    db.session.commit()
+
+    return jsonify({"message": "Usuário cadastrado com sucesso!"}), 201
+
+
+# Rota de login
+@pizzaria_bp.route("/login", methods=["POST"])
+def login():
+    dados = request.json
+    email = dados.get("email")
+    senha = dados.get("senha")
+
+    if not email or not senha:
+        return jsonify({"error": "Email e senha são obrigatórios"}), 400
+
+    usuario = Usuario.query.filter_by(email=email).first()
+    if not usuario or not check_password_hash(usuario.senha, senha):
+        return jsonify({"error": "Credenciais inválidas"}), 401
+
+    return jsonify({"message": "Login realizado com sucesso!"}), 200
+
+
+@pizzaria_bp.route("/usuarios", methods=["GET"])
+def listar_usuarios():
+
+    usuarios = Usuario.query.all()
+
+    lista_usuarios = [
+        {"id": usuario.id, "nome": usuario.nome, "email": usuario.email}
+        for usuario in usuarios
+    ]
+
+    return jsonify(lista_usuarios), 200
 
 
 @pizzaria_bp.route("/pizzas", methods=["GET"])
