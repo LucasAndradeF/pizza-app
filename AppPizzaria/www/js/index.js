@@ -33,7 +33,6 @@ async function loginUsuario() {
 }
 
 async function cadastrarUsuario() {
-
   const nome = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const senha = document.getElementById("password").value;
@@ -68,3 +67,88 @@ async function cadastrarUsuario() {
     alert("Erro de conexão com o servidor");
   }
 }
+
+
+
+
+
+async function buscarPizzas() {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/pizzas");
+      const pizzas = await response.json();
+  
+      const pizzaListElement = document.getElementById("pizza-list");
+      pizzaListElement.innerHTML = "";
+  
+      pizzas.forEach((pizza) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${pizza.nome}</strong> - R$ ${pizza.preco.toFixed(2)} <br>
+          Recheio: ${pizza.recheio}
+        `;
+        pizzaListElement.appendChild(listItem);
+      });
+    } catch (error) {
+      console.error("Erro ao buscar pizzas:", error);
+    }
+  }
+  
+  async function buscarDoces() {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/doces");
+      const doces = await response.json();
+  
+      const doceListElement = document.getElementById("doces-list");
+      doceListElement.innerHTML = "";
+  
+      doces.forEach((doce) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${doce.nome}</strong> - R$ ${doce.preco.toFixed(2)} <br>
+        `;
+        doceListElement.appendChild(listItem);
+      });
+    } catch (error) {
+      console.error("Erro ao buscar doces:", error);
+    }
+  }
+  
+  async function buscarBebidas() {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/bebidas");
+      const bebidas = await response.json();
+  
+      const bebidaListElement = document.getElementById("bebidas-list");
+      bebidaListElement.innerHTML = "";
+  
+      bebidas.forEach((bebida) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${bebida.nome}</strong> - R$ ${bebida.preco.toFixed(2)} <br>
+        `;
+        bebidaListElement.appendChild(listItem);
+      });
+    } catch (error) {
+      console.error("Erro ao buscar bebidas:", error);
+    }
+  }
+  
+  function mostrarItens(item) {
+    // Esconde todas as listas
+    document.getElementById("pizza-list").style.display = "none";
+    document.getElementById("bebidas-list").style.display = "none";
+    document.getElementById("doces-list").style.display = "none";
+  
+    // Mostra apenas a lista correspondente
+    if (item === "pizzas") {
+      document.getElementById("pizza-list").style.display = "block";
+      buscarPizzas();
+    } else if (item === "doces") {
+      document.getElementById("doces-list").style.display = "block";
+      buscarDoces();
+    } else if (item === "bebidas") {
+      document.getElementById("bebidas-list").style.display = "block";
+      buscarBebidas();
+    }
+  }
+  

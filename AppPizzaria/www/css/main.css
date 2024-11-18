@@ -69,3 +69,27 @@
   align-items: center;
   margin-top: 50px;
 }
+
+
+
+
+
+
+
+
+
+
+
+#pizza-list, #bebidas-list, #doces-list {
+  list-style: none;
+  padding: 0;
+}
+
+#pizza-list li, #bebidas-list li, #doces-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#pizza-list li:last-child, #bebidas-list li:last-child, #doces-list li:last-child {
+  border-bottom: none;
+}
