@@ -52,7 +52,7 @@
   margin-top: 10px;
 }
 
-.fundo-cardapio div h1 {
+.fundo-cardapio div h1, .fundo-pedido header h1 {
   color: var(--color-cardapio);
   text-transform: uppercase;
   margin-top: 50px;
@@ -93,4 +93,17 @@
 #bebidas-list li:last-child,
 #doces-list li:last-child {
   border-bottom: none;
+}
+
+.custom-select {
+  width: 100%; /* Tamanho total da lista */
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .custom-select {
+    width: 50%; /* 2 opções por linha em telas pequenas */
+    display: inline-block; /* Usar inline-block para se alinhar lado a lado */
+  }
 }

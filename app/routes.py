@@ -284,3 +284,17 @@ def get_orders():
     return jsonify(
         [{"id": o.id, "produto_id": o.produto_id, "status": o.status} for o in orders]
     )
+
+
+@pizzaria_bp.route("/menu", methods=["GET"])
+def get_menu():
+    pizzas = Pizza.query.all()
+    bebidas = Bebidas.query.all()
+    doces = Doces.query.all()
+
+    menu = {
+        "pizzas": [{"id": p.id, "nome": p.nome, "preco": p.preco} for p in pizzas],
+        "bebidas": [{"id": b.id, "nome": b.nome, "preco": b.preco} for b in bebidas],
+        "doces": [{"id": d.id, "nome": d.nome, "preco": d.preco} for d in doces],
+    }
+    return jsonify(menu)

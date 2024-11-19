@@ -148,3 +148,103 @@ async function buscarPizzas() {
     }
   }
   
+
+  document.addEventListener("DOMContentLoaded", () => {
+    fetchMenu();
+  });
+  
+  async function fetchMenu() {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/menu");
+      const menu = await response.json();
+      addItemsToMenu("pizzas", menu.pizzas);
+      addItemsToMenu("bebidas", menu.bebidas);
+      addItemsToMenu("doces", menu.doces);
+    } catch (error) {
+      console.error("Erro ao buscar o menu:", error);
+    }
+  }
+  
+  function addItemsToMenu(categoria, items) {
+    const container = document.getElementById(`${categoria}-list`);
+    items.forEach((item) => {
+      const coluna = document.createElement("div");
+      coluna.classList.add("column", "is-half"); // 2 cards por linha em telas pequenas
+      coluna.style.width = "200px"; // Definir a largura dos cards para 200px
+  
+      coluna.innerHTML = `
+        <div class="card custom-card" style="width: 6000px;"> 
+          <div class="card-content">
+            <p><strong>${item.nome}</strong></p>
+            <p>R$ ${item.preco.toFixed(2)}</p>
+            <button class="button is-primary" onclick="adicionarAoPedido(${item.id}, '${item.nome}', ${item.preco})">
+              Adicionar
+            </button>
+          </div>
+        </div>
+      `;
+  
+      container.appendChild(coluna);
+    });
+  }
+  
+  
+  let pedido = [];
+  let total = 0;
+  
+  function adicionarAoPedido(id, nome, preco) {
+    const itemExistente = pedido.find((item) => item.id === id);
+  
+    if (itemExistente) {
+      itemExistente.quantidade++;
+      itemExistente.total += preco;
+    } else {
+      pedido.push({ id, nome, quantidade: 1, preco, total: preco });
+    }
+  
+    atualizarTabela();
+  }
+  
+  function atualizarTabela() {
+    const pedidoItensContainer = document.getElementById("pedido-itens");
+    const totalPrecoElement = document.getElementById("total-preco");
+  
+    pedidoItensContainer.innerHTML = "";
+    total = 0;
+  
+    pedido.forEach((item) => {
+      const row = document.createElement("tr");
+  
+      row.innerHTML = `
+        <td>${item.nome}</td>
+        <td>${item.quantidade}</td>
+        <td>R$ ${item.total.toFixed(2)}</td>
+        <td>
+          <button class="button is-small is-danger" onclick="removerDoPedido(${item.id})">Remover</button>
+        </td>
+      `;
+  
+      pedidoItensContainer.appendChild(row);
+      total += item.total;
+    });
+  
+    totalPrecoElement.textContent = total.toFixed(2);
+  }
+  
+  function removerDoPedido(id) {
+    const index = pedido.findIndex((item) => item.id === id);
+  
+    if (index !== -1) {
+      pedido.splice(index, 1);
+    }
+  
+    atualizarTabela();
+  }
+  
+  function finalizarPedido() {
+    alert("Pedido finalizado!");
+    pedido = [];
+    atualizarTabela();
+  }
+  
+  

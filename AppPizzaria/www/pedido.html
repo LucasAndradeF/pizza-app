@@ -10,14 +10,28 @@
     <link rel="stylesheet" href="css/main.css" />
     <title>Pedido</title>
   </head>
-  <body>
+  <body class="fundo-pedido">
     <header>
       <h1 class="title">Tela de Pedido</h1>
     </header>
+
     <section class="cardapio">
-      <h2 class="subtitle">Escolha os itens:</h2>
-      <div id="menu-items" class="columns is-multiline"></div>
+      <div class="categoria" id="pizzas">
+        <h3 class="title is-4">Pizzas</h3>
+        <div id="pizzas-list" class="columns is-multiline"></div>
+      </div>
+
+      <div class="categoria" id="bebidas">
+        <h3 class="title is-4">Bebidas</h3>
+        <div id="bebidas-list" class="columns is-multiline"></div>
+      </div>
+
+      <div class="categoria" id="doces">
+        <h3 class="title is-4">Doces</h3>
+        <div id="doces-list" class="columns is-multiline"></div>
+      </div>
     </section>
+
     <section class="pedido">
       <h2 class="subtitle">Seu Pedido:</h2>
       <table class="table is-fullwidth">
@@ -36,80 +50,7 @@
         Finalizar Pedido
       </button>
     </section>
-    <!-- <script>
-      const cardapio = [
-        { id: 1, nome: "Margherita", preco: 35 },
-        { id: 2, nome: "Calabresa", preco: 40 },
-        { id: 3, nome: "Coca-Cola", preco: 5 },
-        { id: 4, nome: "Tiramisu", preco: 20 },
-      ];
-      const pedido = {};
-      function carregarCardapio() {
-        const menuItems = document.getElementById("menu-items");
-        cardapio.forEach((item) => {
-          const coluna = document.createElement("div");
-          coluna.className = "column is-one-quarter";
-          coluna.innerHTML = `
-            <div class="card">
-              <div class="card-content">
-                <p><strong>${item.nome}</strong></p>
-                <p>R$ ${item.preco.toFixed(2)}</p>
-                <button class="button is-primary" onclick="adicionarAoPedido(${
-                  item.id
-                })">Adicionar</button>
-              </div>
-            </div>
-          `;
-          menuItems.appendChild(coluna);
-        });
-      }
-      function adicionarAoPedido(itemId) {
-        const item = cardapio.find((i) => i.id === itemId);
-        if (!pedido[itemId]) {
-          pedido[itemId] = { ...item, quantidade: 1 };
-        } else {
-          pedido[itemId].quantidade++;
-        }
-        atualizarPedido();
-      }
-      function removerDoPedido(itemId) {
-        if (pedido[itemId]) {
-          delete pedido[itemId];
-          atualizarPedido();
-        }
-      }
-      function atualizarPedido() {
-        const pedidoItens = document.getElementById("pedido-itens");
-        const totalPreco = document.getElementById("total-preco");
-        pedidoItens.innerHTML = "";
-        let total = 0;
-        for (const id in pedido) {
-          const item = pedido[id];
-          total += item.preco * item.quantidade;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.nome}</td>
-            <td>${item.quantidade}</td>
-            <td>R$ ${(item.preco * item.quantidade).toFixed(2)}</td>
-            <td>
-              <button class="button is-danger is-small" onclick="removerDoPedido(${
-                item.id
-              })">Remover</button>
-            </td>
-          `;
-          pedidoItens.appendChild(row);
-        }
-        totalPreco.textContent = total.toFixed(2);
-      }
-      function finalizarPedido() {
-        if (Object.keys(pedido).length === 0) {
-          alert("Seu pedido está vazio!");
-          return;
-        }
-        alert("Pedido finalizado com sucesso!");
-        console.log("Resumo do Pedido:", pedido);
-      }
-      carregarCardapio();
-    </script> -->
+
+    <script src="js/index.js"></script>
   </body>
 </html>
