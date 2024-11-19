@@ -52,7 +52,8 @@
   margin-top: 10px;
 }
 
-.fundo-cardapio div h1, .fundo-pedido header h1 {
+.fundo-cardapio div h1,
+.fundo-pedido header h1 {
   color: var(--color-cardapio);
   text-transform: uppercase;
   margin-top: 50px;
@@ -95,15 +96,37 @@
   border-bottom: none;
 }
 
-.custom-select {
-  width: 100%; /* Tamanho total da lista */
-  padding: 8px;
-  margin-bottom: 10px;
+
+.fundo-pedido section div h3 {
+  color: var(--color-cardapio);
+  margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .custom-select {
-    width: 50%; /* 2 opções por linha em telas pequenas */
-    display: inline-block; /* Usar inline-block para se alinhar lado a lado */
-  }
+.fundo-pedido section div div p  {
+  font-weight: bold;
+  color: #fff;
+  font-size: 18px;
+  padding: 2px;
+}
+
+section div .card button, html .fundo-pedido .pedido button {
+  width: 80%;
+  background-color: var(--color-cardapio);
+  color: #000;
+}
+
+html .fundo-pedido {
+  margin: 0;
+  padding: 0;
+  background-image: url(../img/fundo-pedido.png);
+  background-size: contain;
+  background-repeat: repeat-y;
+  height: auto;
+  min-height: 100%;
+  background-position: center center;
+}
+
+html .fundo-pedido .pedido {
+  width: 90%;
+  margin-top: 20px;
 }

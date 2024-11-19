@@ -169,13 +169,13 @@ async function buscarPizzas() {
     const container = document.getElementById(`${categoria}-list`);
     items.forEach((item) => {
       const coluna = document.createElement("div");
-      coluna.classList.add("column", "is-half"); // 2 cards por linha em telas pequenas
-      coluna.style.width = "200px"; // Definir a largura dos cards para 200px
+      coluna.classList.add("column", "is-half");
+      coluna.style.width = "350px";
   
       coluna.innerHTML = `
-        <div class="card custom-card" style="width: 6000px;"> 
+        <div class="card custom-card"> 
           <div class="card-content">
-            <p><strong>${item.nome}</strong></p>
+            <p>${item.nome}</p>
             <p>R$ ${item.preco.toFixed(2)}</p>
             <button class="button is-primary" onclick="adicionarAoPedido(${item.id}, '${item.nome}', ${item.preco})">
               Adicionar
