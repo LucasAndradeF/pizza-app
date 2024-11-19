@@ -69,9 +69,6 @@ async function cadastrarUsuario() {
 }
 
 
-
-
-
 async function buscarPizzas() {
     try {
       const response = await fetch("http://127.0.0.1:5000/pizzas");
@@ -84,7 +81,7 @@ async function buscarPizzas() {
         const listItem = document.createElement("li");
         listItem.innerHTML = `
           <strong>${pizza.nome}</strong> - R$ ${pizza.preco.toFixed(2)} <br>
-          Recheio: ${pizza.recheio}
+          <strong>Recheio:</strong> ${pizza.recheio}
         `;
         pizzaListElement.appendChild(listItem);
       });
@@ -134,12 +131,11 @@ async function buscarPizzas() {
   }
   
   function mostrarItens(item) {
-    // Esconde todas as listas
+
     document.getElementById("pizza-list").style.display = "none";
     document.getElementById("bebidas-list").style.display = "none";
     document.getElementById("doces-list").style.display = "none";
   
-    // Mostra apenas a lista correspondente
     if (item === "pizzas") {
       document.getElementById("pizza-list").style.display = "block";
       buscarPizzas();

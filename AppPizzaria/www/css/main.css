@@ -49,6 +49,7 @@
   text-align: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .fundo-cardapio div h1 {
@@ -57,7 +58,8 @@
   margin-top: 50px;
 }
 
-.fundo-cardapio div a, .opcoes-cardapio li button {
+.fundo-cardapio div a,
+.opcoes-cardapio li button {
   background-color: var(--color-cardapio);
   text-transform: uppercase;
   font-weight: bold;
@@ -70,26 +72,25 @@
   margin-top: 50px;
 }
 
-
-
-
-
-
-
-
-
-
-
-#pizza-list, #bebidas-list, #doces-list {
+#pizza-list,
+#bebidas-list,
+#doces-list {
   list-style: none;
   padding: 0;
+  width: 100%;
 }
 
-#pizza-list li, #bebidas-list li, #doces-list li {
+#pizza-list li,
+#bebidas-list li,
+#doces-list li {
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  background-color: #000;
+  color: var(--color-cardapio);
 }
 
-#pizza-list li:last-child, #bebidas-list li:last-child, #doces-list li:last-child {
+#pizza-list li:last-child,
+#bebidas-list li:last-child,
+#doces-list li:last-child {
   border-bottom: none;
 }
