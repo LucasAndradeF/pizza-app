@@ -1,5 +1,4 @@
 async function loginUsuario() {
-  // Coleta os valores dos inputs
   const email = document.getElementById("username").value;
   const senha = document.getElementById("password").value;
 
