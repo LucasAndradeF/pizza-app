@@ -2,6 +2,11 @@
   --color-cardapio: #ffb85a;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .fundo-pizzaria {
   background-image: url(../img/_pizza\ sua\ fome\ pede\ pizza\ instagram\ stories.png);
   display: flex;
@@ -130,3 +135,23 @@ html .fundo-pedido .pedido {
   width: 90%;
   margin-top: 20px;
 }
+
+body .title, body .subtitle {
+  color: var(--color-cardapio);
+  font-weight: bold;
+}
+
+div .sub-info {
+   background-color: var(--color-cardapio);
+   color: #000;
+   padding: .2em;
+   margin-bottom: 0;
+   font-weight: bold;
+   font-size: 1em;
+}
+
+div .info-content{
+  padding: .5em 0;
+  text-indent: justify;
+}
+
