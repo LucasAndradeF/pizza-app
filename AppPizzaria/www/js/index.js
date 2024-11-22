@@ -1,3 +1,5 @@
+const urlBase = "http://192.168.1.8:5000";
+
 async function loginUsuario() {
   const email = document.getElementById("username").value;
   const senha = document.getElementById("password").value;
@@ -8,7 +10,7 @@ async function loginUsuario() {
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/login", {
+    const response = await fetch(`${urlBase}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +45,7 @@ async function cadastrarUsuario() {
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/cadastro", {
+    const response = await fetch(`${urlBase}/cadastro`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +72,7 @@ async function cadastrarUsuario() {
 
 async function buscarPizzas() {
     try {
-      const response = await fetch("http://127.0.0.1:5000/pizzas");
+      const response = await fetch(`${urlBase}/pizzas`);
       const pizzas = await response.json();
   
       const pizzaListElement = document.getElementById("pizza-list");
@@ -91,7 +93,7 @@ async function buscarPizzas() {
   
   async function buscarDoces() {
     try {
-      const response = await fetch("http://127.0.0.1:5000/doces");
+      const response = await fetch(`${urlBase}/doces`);
       const doces = await response.json();
   
       const doceListElement = document.getElementById("doces-list");
@@ -111,7 +113,7 @@ async function buscarPizzas() {
   
   async function buscarBebidas() {
     try {
-      const response = await fetch("http://127.0.0.1:5000/bebidas");
+      const response = await fetch(`${urlBase}/bebidas`);
       const bebidas = await response.json();
   
       const bebidaListElement = document.getElementById("bebidas-list");
@@ -154,7 +156,7 @@ async function buscarPizzas() {
   
   async function fetchMenu() {
     try {
-      const response = await fetch("http://127.0.0.1:5000/menu");
+      const response = await fetch(`${urlBase}/menu`);
       const menu = await response.json();
       addItemsToMenu("pizzas", menu.pizzas);
       addItemsToMenu("bebidas", menu.bebidas);
