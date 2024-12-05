@@ -1,4 +1,4 @@
-const urlBase = "http://192.168.1.8:5000";
+const urlBase = "http://192.168.1.4:5000";
 
 async function loginUsuario() {
   const email = document.getElementById("username").value;
@@ -69,183 +69,203 @@ async function cadastrarUsuario() {
   }
 }
 
-
 async function buscarPizzas() {
-    try {
-      const response = await fetch(`${urlBase}/pizzas`);
-      const pizzas = await response.json();
-  
-      const pizzaListElement = document.getElementById("pizza-list");
-      pizzaListElement.innerHTML = "";
-  
-      pizzas.forEach((pizza) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
+  try {
+    const response = await fetch(`${urlBase}/pizzas`);
+    const pizzas = await response.json();
+
+    const pizzaListElement = document.getElementById("pizza-list");
+    pizzaListElement.innerHTML = "";
+
+    pizzas.forEach((pizza) => {
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
           <strong>${pizza.nome}</strong> - R$ ${pizza.preco.toFixed(2)} <br>
           <strong>Recheio:</strong> ${pizza.recheio}
         `;
-        pizzaListElement.appendChild(listItem);
-      });
-    } catch (error) {
-      console.error("Erro ao buscar pizzas:", error);
-    }
+      pizzaListElement.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error("Erro ao buscar pizzas:", error);
   }
-  
-  async function buscarDoces() {
-    try {
-      const response = await fetch(`${urlBase}/doces`);
-      const doces = await response.json();
-  
-      const doceListElement = document.getElementById("doces-list");
-      doceListElement.innerHTML = "";
-  
-      doces.forEach((doce) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
+}
+
+async function buscarDoces() {
+  try {
+    const response = await fetch(`${urlBase}/doces`);
+    const doces = await response.json();
+
+    const doceListElement = document.getElementById("doces-list");
+    doceListElement.innerHTML = "";
+
+    doces.forEach((doce) => {
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
           <strong>${doce.nome}</strong> - R$ ${doce.preco.toFixed(2)} <br>
         `;
-        doceListElement.appendChild(listItem);
-      });
-    } catch (error) {
-      console.error("Erro ao buscar doces:", error);
-    }
+      doceListElement.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error("Erro ao buscar doces:", error);
   }
-  
-  async function buscarBebidas() {
-    try {
-      const response = await fetch(`${urlBase}/bebidas`);
-      const bebidas = await response.json();
-  
-      const bebidaListElement = document.getElementById("bebidas-list");
-      bebidaListElement.innerHTML = "";
-  
-      bebidas.forEach((bebida) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
+}
+
+async function buscarBebidas() {
+  try {
+    const response = await fetch(`${urlBase}/bebidas`);
+    const bebidas = await response.json();
+
+    const bebidaListElement = document.getElementById("bebidas-list");
+    bebidaListElement.innerHTML = "";
+
+    bebidas.forEach((bebida) => {
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
           <strong>${bebida.nome}</strong> - R$ ${bebida.preco.toFixed(2)} <br>
         `;
-        bebidaListElement.appendChild(listItem);
-      });
-    } catch (error) {
-      console.error("Erro ao buscar bebidas:", error);
-    }
+      bebidaListElement.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error("Erro ao buscar bebidas:", error);
   }
-  
-  function mostrarItens(item) {
+}
 
-    document.getElementById("pizza-list").style.display = "none";
-    document.getElementById("bebidas-list").style.display = "none";
-    document.getElementById("doces-list").style.display = "none";
-  
-    if (item === "pizzas") {
-      document.getElementById("pizza-list").style.display = "block";
-      buscarPizzas();
-    } else if (item === "doces") {
-      document.getElementById("doces-list").style.display = "block";
-      buscarDoces();
-    } else if (item === "bebidas") {
-      document.getElementById("bebidas-list").style.display = "block";
-      buscarBebidas();
-    }
-  }
-  
+function mostrarItens(item) {
+  document.getElementById("pizza-list").style.display = "none";
+  document.getElementById("bebidas-list").style.display = "none";
+  document.getElementById("doces-list").style.display = "none";
 
-  document.addEventListener("DOMContentLoaded", () => {
-    fetchMenu();
-  });
-  
-  async function fetchMenu() {
-    try {
-      const response = await fetch(`${urlBase}/menu`);
-      const menu = await response.json();
-      addItemsToMenu("pizzas", menu.pizzas);
-      addItemsToMenu("bebidas", menu.bebidas);
-      addItemsToMenu("doces", menu.doces);
-    } catch (error) {
-      console.error("Erro ao buscar o menu:", error);
-    }
+  if (item === "pizzas") {
+    document.getElementById("pizza-list").style.display = "block";
+    buscarPizzas();
+  } else if (item === "doces") {
+    document.getElementById("doces-list").style.display = "block";
+    buscarDoces();
+  } else if (item === "bebidas") {
+    document.getElementById("bebidas-list").style.display = "block";
+    buscarBebidas();
   }
-  
-  function addItemsToMenu(categoria, items) {
-    const container = document.getElementById(`${categoria}-list`);
-    items.forEach((item) => {
-      const coluna = document.createElement("div");
-      coluna.classList.add("column", "is-half");
-      coluna.style.width = "350px";
-  
-      coluna.innerHTML = `
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchMenu();
+});
+
+async function fetchMenu() {
+  try {
+    const response = await fetch(`${urlBase}/menu`);
+    const menu = await response.json();
+    addItemsToMenu("pizzas", menu.pizzas);
+    addItemsToMenu("bebidas", menu.bebidas);
+    addItemsToMenu("doces", menu.doces);
+  } catch (error) {
+    console.error("Erro ao buscar o menu:", error);
+  }
+}
+
+function addItemsToMenu(categoria, items) {
+  const container = document.getElementById(`${categoria}-list`);
+  items.forEach((item) => {
+    const coluna = document.createElement("div");
+    coluna.classList.add("column", "is-half");
+    coluna.style.width = "350px";
+
+    coluna.innerHTML = `
         <div class="card custom-card"> 
           <div class="card-content">
             <p>${item.nome}</p>
             <p>R$ ${item.preco.toFixed(2)}</p>
-            <button class="button is-primary" onclick="adicionarAoPedido(${item.id}, '${item.nome}', ${item.preco})">
+            <button class="button is-primary" onclick="adicionarAoPedido(${
+              item.id
+            }, '${item.nome}', ${item.preco})">
               Adicionar
             </button>
           </div>
         </div>
       `;
-  
-      container.appendChild(coluna);
-    });
+
+    container.appendChild(coluna);
+  });
+}
+
+let pedido = [];
+let total = 0;
+
+function adicionarAoPedido(id, nome, preco) {
+  const itemExistente = pedido.find((item) => item.id === id);
+
+  if (itemExistente) {
+    itemExistente.quantidade++;
+    itemExistente.total += preco;
+  } else {
+    pedido.push({ id, nome, quantidade: 1, preco, total: preco });
   }
-  
-  
-  let pedido = [];
-  let total = 0;
-  
-  function adicionarAoPedido(id, nome, preco) {
-    const itemExistente = pedido.find((item) => item.id === id);
-  
-    if (itemExistente) {
-      itemExistente.quantidade++;
-      itemExistente.total += preco;
-    } else {
-      pedido.push({ id, nome, quantidade: 1, preco, total: preco });
-    }
-  
-    atualizarTabela();
-  }
-  
-  function atualizarTabela() {
-    const pedidoItensContainer = document.getElementById("pedido-itens");
-    const totalPrecoElement = document.getElementById("total-preco");
-  
-    pedidoItensContainer.innerHTML = "";
-    total = 0;
-  
-    pedido.forEach((item) => {
-      const row = document.createElement("tr");
-  
-      row.innerHTML = `
+
+  atualizarTabela();
+}
+
+function atualizarTabela() {
+  const pedidoItensContainer = document.getElementById("pedido-itens");
+  const totalPrecoElement = document.getElementById("total-preco");
+
+  pedidoItensContainer.innerHTML = "";
+  total = 0;
+
+  pedido.forEach((item) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
         <td>${item.nome}</td>
         <td>${item.quantidade}</td>
         <td>R$ ${item.total.toFixed(2)}</td>
         <td>
-          <button class="button is-small is-danger" onclick="removerDoPedido(${item.id})">Remover</button>
+          <button class="button is-small is-danger" onclick="removerDoPedido(${
+            item.id
+          })">Remover</button>
         </td>
       `;
-  
-      pedidoItensContainer.appendChild(row);
-      total += item.total;
-    });
-  
-    totalPrecoElement.textContent = total.toFixed(2);
+
+    pedidoItensContainer.appendChild(row);
+    total += item.total;
+  });
+
+  totalPrecoElement.textContent = total.toFixed(2);
+}
+
+function removerDoPedido(id) {
+  const index = pedido.findIndex((item) => item.id === id);
+
+  if (index !== -1) {
+    pedido.splice(index, 1);
   }
-  
-  function removerDoPedido(id) {
-    const index = pedido.findIndex((item) => item.id === id);
-  
-    if (index !== -1) {
-      pedido.splice(index, 1);
-    }
-  
-    atualizarTabela();
+
+  atualizarTabela();
+}
+
+function finalizarPedido() {
+  if (pedido.length === 0) {
+    alert(
+      "Nenhum item no pedido. Adicione algo ao carrinho antes de finalizar."
+    );
+    return;
   }
-  
-  function finalizarPedido() {
-    alert("Pedido finalizado!");
-    pedido = [];
-    atualizarTabela();
-  }
-  
-  
+
+  const tempoPorItem = 15; 
+  const tempoTotal = pedido.reduce(
+    (tempo, item) => tempo + item.quantidade * tempoPorItem,
+    0
+  );
+
+  let resumoPedido = "Resumo do Pedido:\n\n";
+  pedido.forEach((item) => {
+    resumoPedido += `${item.quantidade}x ${item.nome} - R$ ${item.total.toFixed(
+      2
+    )}\n`;
+  });
+  resumoPedido += `\nTempo estimado de espera: ${tempoTotal} minutos.`;
+
+  alert(resumoPedido);
+
+  pedido = [];
+  atualizarTabela();
+}

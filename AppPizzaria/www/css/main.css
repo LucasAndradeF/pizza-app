@@ -32,6 +32,15 @@
   flex-direction: column;
 }
 
+body header .itens-disponiveis {
+  margin-top: 2em;
+  padding: 0.5em;
+}
+
+main .div-info {
+  color: #fff;
+}
+
 .button-cta {
   width: 100%;
   margin-top: 20px;
@@ -75,7 +84,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 50px;
 }
 
 #pizza-list,
@@ -101,20 +109,20 @@
   border-bottom: none;
 }
 
-
 .fundo-pedido section div h3 {
   color: var(--color-cardapio);
   margin-top: 20px;
 }
 
-.fundo-pedido section div div p  {
+.fundo-pedido section div div p {
   font-weight: bold;
   color: #fff;
   font-size: 18px;
   padding: 2px;
 }
 
-section div .card button, html .fundo-pedido .pedido button {
+section div .card button,
+html .fundo-pedido .pedido button {
   width: 80%;
   background-color: var(--color-cardapio);
   color: #000;
@@ -136,22 +144,22 @@ html .fundo-pedido .pedido {
   margin-top: 20px;
 }
 
-body .title, body .subtitle {
+body .title,
+body .subtitle {
   color: var(--color-cardapio);
   font-weight: bold;
 }
 
 div .sub-info {
-   background-color: var(--color-cardapio);
-   color: #000;
-   padding: .2em;
-   margin-bottom: 0;
-   font-weight: bold;
-   font-size: 1em;
+  background-color: var(--color-cardapio);
+  color: #000;
+  padding: 0.2em;
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 1em;
 }
 
-div .info-content{
-  padding: .5em 0;
+div .info-content {
+  padding: 0.5em 0;
   text-indent: justify;
 }
-
